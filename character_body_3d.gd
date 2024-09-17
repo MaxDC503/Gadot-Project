@@ -15,6 +15,9 @@ const MAX_JUMP_MULT = 2.0
 const JUMP_MULT_SCALAR = 0.025
 const JUMP_MULT_HORIZONTAL = 3.5
 
+# wall run variables
+const MIN_WALL_RUN_VELOCITY = 2.0
+
 # camera variables
 const MAX_LOOK_ANGLE = 90
 const MIN_LOOK_ANGLE = -90
@@ -66,7 +69,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = lerp(velocity.x, direction.x * speed, delta * AIR_STOP_FORCE)
 		velocity.z = lerp(velocity.z, direction.z * speed, delta * AIR_STOP_FORCE)
 		
-		# Handle jump.
+	# Handle jump.
 	if Input.is_action_pressed("jump"): #and is_on_floor():
 		if jumpMult <= MAX_JUMP_MULT:
 			jumpMult = lerp(jumpMult, MAX_JUMP_MULT, JUMP_MULT_SCALAR)
@@ -80,9 +83,13 @@ func _physics_process(delta: float) -> void:
 			velocity.z += direction.z * jumpMult * JUMP_MULT_HORIZONTAL
 		jumpMult = 1.0
 		jumpChargeBar.value = jumpMult
+		
+	# Handle Wallrun.
 	
-		
-		
+	if is_on_wall_only():
+		print(get_wall_normal())
+		print("wallrunning")
+	
 	t_bob += delta * velocity.length() * float(is_on_floor())
 	camera.transform.origin = _headbob(t_bob)
 
@@ -98,3 +105,4 @@ func _headbob(time) -> Vector3:
 	pos.y = sin(time * BOB_FREQ) * BOB_AMP
 	pos.x = cos(time * BOB_FREQ / 2) * BOB_AMP
 	return pos
+	
