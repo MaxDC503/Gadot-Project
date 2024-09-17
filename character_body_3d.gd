@@ -13,6 +13,7 @@ const MAX_VELOCITY = SPRINT_SPEED * 2.0
 var jumpMult = 1.0
 const MAX_JUMP_MULT = 2.0
 const JUMP_MULT_SCALAR = 0.025
+const JUMP_MULT_HORIZONTAL = 3.5
 
 # camera variables
 const MAX_LOOK_ANGLE = 90
@@ -43,31 +44,6 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= GRAVITY * delta
-
-	# Handle jump.
-	if Input.is_action_pressed("jump"): #and is_on_floor():
-		if jumpMult <= MAX_JUMP_MULT:
-			jumpMult = lerp(jumpMult, MAX_JUMP_MULT, JUMP_MULT_SCALAR)
-			jumpChargeBar.max_value = MAX_JUMP_MULT
-			jumpChargeBar.min_value = 1
-			jumpChargeBar.value = jumpMult
-	elif Input.is_action_just_released("jump"):
-		if is_on_floor():
-			velocity.y += JUMP_VELOCITY * jumpMult
-		jumpMult = 1.0
-		jumpChargeBar.value = jumpMult
-
-		
-		
-	#if Input.is_action_just_pressed("jump") and is_on_floor():
-	#	velocity.y += JUMP_VELOCITY * jumpMult
-	#	jumpMult = 1.0
-	#elif Input.is_action_pressed("charge jump"):
-	#	if jumpMult <= MAX_JUMP_MULT:
-	#		jumpMult += 0.01
-		
-		
-		
 	
 	# Handle sprint.
 	if Input.is_action_pressed("sprint"):
@@ -89,6 +65,23 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = lerp(velocity.x, direction.x * speed, delta * AIR_STOP_FORCE)
 		velocity.z = lerp(velocity.z, direction.z * speed, delta * AIR_STOP_FORCE)
+		
+		# Handle jump.
+	if Input.is_action_pressed("jump"): #and is_on_floor():
+		if jumpMult <= MAX_JUMP_MULT:
+			jumpMult = lerp(jumpMult, MAX_JUMP_MULT, JUMP_MULT_SCALAR)
+			jumpChargeBar.max_value = MAX_JUMP_MULT
+			jumpChargeBar.min_value = 1
+			jumpChargeBar.value = jumpMult
+	elif Input.is_action_just_released("jump"):
+		if is_on_floor():
+			velocity.y += JUMP_VELOCITY * jumpMult
+			velocity.x += direction.x * jumpMult * JUMP_MULT_HORIZONTAL
+			velocity.z += direction.z * jumpMult * JUMP_MULT_HORIZONTAL
+		jumpMult = 1.0
+		jumpChargeBar.value = jumpMult
+	
+		
 		
 	t_bob += delta * velocity.length() * float(is_on_floor())
 	camera.transform.origin = _headbob(t_bob)
