@@ -97,8 +97,10 @@ func _physics_process(delta: float) -> void:
 		jumpChargeBar.value = jumpMult
 	
 	# Handle Wallrun.
-	var zVec = Vector3(0, 0, 1)
+	var kVec = Vector3(0, 0, 1)
 	var horizontalSpeed = Vector3(velocity.x, 0, velocity.z).length()
+	
+	var cameraVector = camera.get_global_transform().basis.z
 	
 	if is_on_floor():
 		lastWallNormal = null 
@@ -109,14 +111,16 @@ func _physics_process(delta: float) -> void:
 	if is_on_wall_only() and not lastWallNormal == get_wall_normal() and horizontalSpeed > WALK_SPEED + 0.5:
 		isWallRunning = true
 		currentWallNormal = get_wall_normal()
+		var temp = currentWallNormal.cross(kVec)
+		camera.global_rotation = currentWallNormal.rotated(temp, deg_to_rad(-45))
+
 		if velocity.y > 0.0: 
 			velocity.y = lerp(velocity.y, 0.0, 0.01)
 		else:
 			velocity.y = 0.0
 	else: 
+		camera.rotation = Vector3(0, 0, 0)
 		isWallRunning = false
-
-
 
 	t_bob += delta * velocity.length() * float(is_on_floor() or isWallRunning)
 	camera.transform.origin = _headbob(t_bob)
