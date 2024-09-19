@@ -27,7 +27,7 @@ const MAX_LOOK_ANGLE = 90
 const MIN_LOOK_ANGLE = -90
 const BASE_FOV = 75.0
 const FOV_CHANGE = 1.5
-var original_camera_rotation
+var original_head_rotation
 
 const BOB_FREQ = 2.0
 const BOB_AMP = 0.08
@@ -41,7 +41,7 @@ const GRAVITY = 9.8
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	original_camera_rotation = camera.rotation
+	original_head_rotation = head.rotation
 
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
@@ -115,17 +115,17 @@ func _physics_process(delta: float) -> void:
 		var leftOrRightVector = direction.cross(currentWallNormal)
 		if leftOrRightVector.y > 0:
 			print("Right")
-			camera.rotation.z = lerp(camera.rotation.z, kVec.rotated(temp, PI/6).z / 2, 0.25)
+			head.rotation.z = lerp(head.rotation.z, kVec.rotated(temp, PI/6).z / 2, 0.25)
 		else:
 			print("Left")
-			camera.rotation.z = lerp(camera.rotation.z, -kVec.rotated(temp, PI/6).z / 2, 0.25)
+			head.rotation.z = lerp(head.rotation.z, -kVec.rotated(temp, PI/6).z / 2, 0.25)
 		
 		if velocity.y > 0.0: 
 			velocity.y = lerp(velocity.y, 0.0, 0.01)
 		else:
 			velocity.y = 0.0
 	else: 
-		camera.rotation = lerp(camera.rotation, original_camera_rotation, 0.05)
+		head.rotation.z = lerp(head.rotation.z, original_head_rotation.z, 0.05)
 		isWallRunning = false
 
 	t_bob += delta * velocity.length() * float(is_on_floor() or isWallRunning)

@@ -35,9 +35,9 @@ shadow_enabled = true
 environment = SubResource("Environment_0p5gc")
 
 [node name="Ground" type="CSGBox3D" parent="Map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.7389, 0.00590849, 0.0290582)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 102.579, 0.00590849, 0.0290582)
 use_collision = true
-size = Vector3(58.4364, 0.01, 35)
+size = Vector3(240.117, 0.01, 35)
 material = SubResource("StandardMaterial3D_36dhf")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Map"]
@@ -52,11 +52,6 @@ size = Vector3(35.1285, 7.26843, 1)
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="Map"]
 transform = Transform3D(-0.021431, 0, 0.99977, 0, 1, 0, -0.99977, 0, -0.021431, -17.5364, 3.18447, -0.349913)
-use_collision = true
-size = Vector3(35.1285, 7.26843, 1)
-
-[node name="CSGBox3D4" type="CSGBox3D" parent="Map"]
-transform = Transform3D(0.89544, 0, 0.445183, 0, 1, 0, -0.445183, 0, 0.89544, 21.622, 3.25472, 8.7559)
 use_collision = true
 size = Vector3(35.1285, 7.26843, 1)
 
@@ -75,10 +70,45 @@ transform = Transform3D(0.998317, 0, -0.0590302, 0, 1, 0, 0.0590302, 0, 0.998317
 use_collision = true
 size = Vector3(3.63272, 2.56537, 3.0459)
 
-[node name="CSGBox3D8" type="CSGBox3D" parent="Map"]
-transform = Transform3D(0.80799, 0, -0.589196, 0, 1, 0, 0.589196, 0, 0.80799, 29.7187, 3.24353, -9.10308)
+[node name="CSGBox3D4" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.3477, 5.08744, 5.79983)
 use_collision = true
-size = Vector3(35.1285, 7.26843, 1)
+size = Vector3(18.4285, 7.26843, 1)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.7861, 4.84887, -4.12639)
+use_collision = true
+size = Vector3(18.4285, 7.26843, 1)
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 76.6317, 9.52273, 3.37717)
+use_collision = true
+size = Vector3(18.4285, 7.26843, 1)
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66.2527, 9.28416, -4.68199)
+use_collision = true
+size = Vector3(18.4285, 7.26843, 1)
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 103.37, 12.5697, 3.09762)
+use_collision = true
+size = Vector3(18.4285, 7.26843, 1)
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 92.9912, 12.3311, -4.96153)
+use_collision = true
+size = Vector3(18.4285, 7.26843, 1)
+
+[node name="CSGBox3D13" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 132.534, 16.4118, 3.10138)
+use_collision = true
+size = Vector3(18.4285, 7.26843, 1)
+
+[node name="CSGBox3D14" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 122.155, 16.1733, -4.95778)
+use_collision = true
+size = Vector3(18.4285, 7.26843, 1)
 
 [node name="Player" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.170929, 0.353648, 0.0193236)
@@ -106,3 +136,5 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 step = 0.001
 show_percentage = false
+
+[node name="Marker2D" type="Marker2D" parent="CanvasLayer"]
