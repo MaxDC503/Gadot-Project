@@ -108,18 +108,26 @@ func _physics_process(delta: float) -> void:
 	elif not isWallRunning:
 		lastWallNormal = currentWallNormal
 	
+	var camRotation = camera.rotation
+
 	if is_on_wall_only() and not lastWallNormal == get_wall_normal() and horizontalSpeed > WALK_SPEED + 0.5:
 		isWallRunning = true
 		currentWallNormal = get_wall_normal()
 		var temp = currentWallNormal.cross(kVec)
-		camera.global_rotation = currentWallNormal.rotated(temp, deg_to_rad(-45))
-
+		var leftOrRightVector = direction.cross(currentWallNormal)
+		if leftOrRightVector.y > 0:
+			print("Right")
+			camera.rotation.z = lerp(camera.rotation.z, kVec.rotated(temp, PI/6).z / 2, 0.25)
+		else:
+			print("Left")
+			camera.rotation.z = lerp(camera.rotation.z, -kVec.rotated(temp, PI/6).z / 2, 0.25)
+		
 		if velocity.y > 0.0: 
 			velocity.y = lerp(velocity.y, 0.0, 0.01)
 		else:
 			velocity.y = 0.0
 	else: 
-		camera.rotation = Vector3(0, 0, 0)
+		camera.rotation = lerp(camera.rotation, camRotation, 0.025)
 		isWallRunning = false
 
 	t_bob += delta * velocity.length() * float(is_on_floor() or isWallRunning)
