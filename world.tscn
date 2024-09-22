@@ -110,6 +110,25 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 122.155, 16.1733, -4.95778)
 use_collision = true
 size = Vector3(18.4285, 7.26843, 1)
 
+[node name="CSGBox3D15" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 114.006, 17.2728, -4.74297)
+use_collision = true
+size = Vector3(193.513, 34.6509, 1)
+
+[node name="CSGBox3D16" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 114.476, 15.825, 2.96582)
+use_collision = true
+size = Vector3(193.513, 34.6509, 1)
+
+[node name="Marker" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.395761, 0.888235, 4.02563)
+visible = false
+use_collision = true
+
+[node name="Grapple" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.787001, 2.12966, 6.45389)
+size = Vector3(0.25, 0.25, 0.25)
+
 [node name="Player" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.170929, 0.353648, 0.0193236)
 script = ExtResource("1_drx7l")
@@ -134,7 +153,20 @@ anchors_preset = -1
 anchor_top = 0.989
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_bottom = 3.56
 step = 0.001
 show_percentage = false
 
-[node name="Marker2D" type="Marker2D" parent="CanvasLayer"]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1.5
+offset_top = -1.5
+offset_right = 1.5
+offset_bottom = 1.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
