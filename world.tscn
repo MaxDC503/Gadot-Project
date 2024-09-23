@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dgle025yqusn4"]
+[gd_scene load_steps=9 format=3 uid="uid://dgle025yqusn4"]
 
 [ext_resource type="Script" path="res://character_body_3d.gd" id="1_drx7l"]
 
@@ -17,6 +17,8 @@ glow_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_36dhf"]
 albedo_color = Color(0.121569, 0.286275, 0.0509804, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_maeve"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_m2rjf"]
 
@@ -128,6 +130,10 @@ use_collision = true
 [node name="Grapple" type="CSGBox3D" parent="Map"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.787001, 2.12966, 6.45389)
 size = Vector3(0.25, 0.25, 0.25)
+
+[node name="Ball" type="MeshInstance3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.42191, 7.09458)
+mesh = SubResource("SphereMesh_maeve")
 
 [node name="Player" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.170929, 0.353648, 0.0193236)

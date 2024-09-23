@@ -44,7 +44,12 @@ var radiusDifference = 0.0
 var grapplePullBackSpeed = 0.0
 var maxGrappleLength = 50.0
 
-var joint
+# Ball variables
+var throwMult = 1.0
+var isChargingThrow = false
+var hasThrown = false
+const MAX_THROW_MULT = 2.0
+const THROW_MULT_SCALAR = 0.025
 
 const GRAVITY = 9.8
 
@@ -55,6 +60,7 @@ const GRAVITY = 9.8
 @onready var player = $"."
 @onready var dot = $"../Map/Marker"
 @onready var rigidBody = $"../RigidBody3D"
+@onready var ball = $"../Map/Ball"
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -191,6 +197,12 @@ func _input(event):
 			#dot.position = result.position
 	elif Input.is_action_just_released("Grapple"):
 		isGrappling = false
+		
+	if Input.is_action_just_pressed("Throw") and not isChargingThrow and not hasThrown:
+		if throwMult >= 1.0 and throwMult < 2.0:
+			throwMult += THROW_MULT_SCALAR
+		
+		
 
 func _headbob(time) -> Vector3:
 	var pos = Vector3.ZERO
