@@ -49,7 +49,12 @@ var throwMult = 1.0
 var isChargingThrow = false
 var hasThrown = false
 const MAX_THROW_MULT = 2.0
+const MIN_THROW_MULT = 1.0
 const THROW_MULT_SCALAR = 0.025
+var ballVelocity = Vector3(0, 0, 0)
+var ballDirection = Vector3(0, 0, 0)
+
+var i = 0
 
 const GRAVITY = 9.8
 
@@ -181,6 +186,29 @@ func _physics_process(delta: float) -> void:
 	else:
 		grappleObject.visible = false
 	
+	if Input.is_action_pressed("Throw") and not isChargingThrow and not hasThrown:
+		if throwMult >= 1.0 and throwMult < MAX_THROW_MULT:
+			isChargingThrow = true
+			throwMult = lerp(throwMult, MAX_THROW_MULT, THROW_MULT_SCALAR)
+			ball.position = global_transform.origin
+	elif Input.is_action_just_released("Throw") and isChargingThrow and not hasThrown:
+		print("Threw!")
+		ballDirection = -cameraVector.normalized()
+		ballVelocity = ballDirection * throwMult
+		isChargingThrow = false
+		hasThrown = true
+		throwMult = MIN_THROW_MULT
+		
+		
+	if hasThrown and i < 100:
+		print("hello")
+		ballVelocity.y -= GRAVITY * delta / 20
+		ball.position += ballVelocity
+		i += 1
+	else:
+		i = 0
+		hasThrown = false
+		
 	move_and_slide()
 	
 func _input(event):
@@ -197,12 +225,6 @@ func _input(event):
 			#dot.position = result.position
 	elif Input.is_action_just_released("Grapple"):
 		isGrappling = false
-		
-	if Input.is_action_just_pressed("Throw") and not isChargingThrow and not hasThrown:
-		if throwMult >= 1.0 and throwMult < 2.0:
-			throwMult += THROW_MULT_SCALAR
-		
-		
 
 func _headbob(time) -> Vector3:
 	var pos = Vector3.ZERO
